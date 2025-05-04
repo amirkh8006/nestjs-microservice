@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - '5672:5672'
+      - '15672:15672' # Web UI
+
+  invoice-service:
+    build:
+      context: .
+      dockerfile: docker/invoice-service.Dockerfile
+    container_name: invoice-service
+    env_file:
+      - .env.production
+    depends_on:
+      - mongo
+      - rabbitmq
+    ports:
+      - '5000:5000'
+
+  email-sender:
+    build:
+      context: .
+      dockerfile: docker/email-sender.Dockerfile
+    container_name: email-sender
+    env_file:
+      - .env.production
+    depends_on:
+      - rabbitmq
+
+volumes:
+  mongo_data:

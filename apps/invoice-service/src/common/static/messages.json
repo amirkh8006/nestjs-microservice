@@ -1,0 +1,8 @@
+{
+  "INVALID_DATA": "Invalid data provided.",
+  "INVALID_OBJECT_ID": "Invalid object ID.",
+  "DATA_NOT_FOUND": "Data not found.",
+  "DATA_FOUND": "Data found.",
+  "DATA_RETRIEVED": "Data retrieved successfully.",
+  "DATA_CREATED": "Data created successfully."
+}
